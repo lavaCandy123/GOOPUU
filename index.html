@@ -1,0 +1,285 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>  
+    <meta charset="UTF-8">  
+    <title>GOPU 公司主页</title>  
+    <script src="https://cdn.tailwindcss.com"></script>  
+    <style>  
+        /* 定义动画效果：分散 */  
+        @keyframes disperse {  
+            0% {  
+                opacity: 1;  
+                transform: translateY(0);  
+            }  
+            100% {  
+                opacity: 0;  
+                transform: translateY(-50px);  
+            }  
+        }  
+        /* 定义动画效果：出现 */  
+        @keyframes appear {  
+            0% {  
+                opacity: 0;  
+            }  
+            100% {  
+                opacity: 1;  
+            }  
+        }  
+        .disperse {  
+            animation: disperse 1s forwards;  
+        }  
+        .appear {  
+            animation: appear 1s forwards;  
+        }  
+        /* 背景图片虚化效果 */  
+        .bg-blur {  
+            background-image: url('./otmmjc65.png');  
+            background-size: cover;  
+            background-position: center;  
+            filter: blur(8px);  
+            position: fixed;  
+            top: 0;  
+            left: 0;  
+            width: 100%;  
+            height: 100%;  
+            z-index: -1;  
+        }  
+        .centered {  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            height: calc(100vh - 100px);  
+        }  
+        .main-content {  
+            display: none;  
+            margin-top: 20px;  
+            opacity: 0;  
+            transition: opacity 0.5s ease;  
+        }  
+        .container {  
+            margin-top: -480px;  
+        }  
+        .hover-content {  
+            position: fixed;  
+            top: 50%;  
+            left: 50%;  
+            transform: translate(-50%, -50%);  
+            width: 120%;  
+            max-width: 1200px;  
+            background: rgba(255, 255, 255, 0.9);  
+            border-radius: 25px;  
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);  
+            display: none;  
+            align-items: center;  
+            justify-content: center;  
+            text-align: left;  
+            z-index: 10;  
+            opacity: 0;  
+            transition: opacity 0.5s ease;  
+            padding: 60px;  
+        }  
+        .bg-content {  
+            position: absolute;  
+            top: 0;  
+            left: 0;  
+            right: 0;  
+            bottom: 0;  
+            background-size: cover;  
+            background-position: center;  
+            filter: blur(5px);  
+            z-index: -1;  
+            border-radius: 25px;  
+        }  
+        .hover-content h2 {  
+            font-size: 2.5rem; /* 调整标题字体大小 */  
+            margin-bottom: 2rem; /* 调整标题下方间距 */  
+        }  
+        .hover-content p {  
+            font-size: 1.5rem; /* 调整文本内容字体大小 */  
+            line-height: 2.5rem;  
+            margin-bottom: 1rem; /* 调整段落之间间距 */  
+        }  
+        .section {  
+            margin-bottom: 2rem; /* 段落之间的间距 */  
+        }  
+        .product-section {  
+            display: flex;  
+            justify-content: space-between; /* 使各产品均匀分布 */  
+            align-items: flex-start; /* 垂直对齐顶部 */  
+            margin: 20px 0; /* 上下间距 */  
+        }  
+        .product-list {  
+            width: 48%; /* 设置每列宽度适为48%，可以调整空间 */  
+            text-align: center; /* 居中对齐 */  
+        }  
+        .product-item {  
+            display: flex;  
+            flex-direction: column; /* 垂直方向排列 */  
+            align-items: center; /* 图片和名称居中 */  
+            margin-bottom: 30px; /* 产品项之间的间距 */  
+        }  
+        .product-item img {  
+            width: 100%; /* 设定图片为其父容器的100%宽度 */  
+            height: auto; /* 自适应高度 */  
+            border-radius: 8px; /* 圆角 */  
+            margin-bottom: 10px; /* 图片与名称之间的间距 */  
+        }  
+    </style>  
+</head>  
+<body class="bg-gray-100 text-gray-800">  
+    <!-- 背景图片 -->  
+    <div class="bg-blur"></div>  
+
+    <!-- 中央内容部分 -->  
+    <div class="centered" id="title-container">  
+        <h1 id="company-name" class="text-8xl font-extrabold text-gray-800 cursor-pointer transition duration-300 transform hover:scale-110">GOPU</h1>  
+    </div>  
+
+    <!-- 主体内容部分 -->  
+    <div class="main-content" id="main-content">  
+        <div class="container mx-auto px-6 py-8 flex justify-around items-start">  
+            <!-- 品牌形象版块 -->  
+            <div class="mb-8 group text-center w-1/3 p-8 bg-white bg-opacity-80 rounded-lg shadow-lg transition duration-500 transform hover:scale-105"  
+                 onmouseenter="handleMouseEnter('brandContent')"  
+                 onmouseleave="handleMouseLeave('brandContent')">  
+                <h2 class="text-2xl font-semibold text-khaki-700 cursor-pointer group-hover:text-khaki-600">  
+                    品牌形象  
+                </h2>  
+            </div>  
+
+            <!-- GOPU理念版块 -->  
+            <div class="mb-8 group text-center w-1/3 p-8 bg-white bg-opacity-80 rounded-lg shadow-lg transition duration-500 transform hover:scale-105"  
+                 onmouseenter="handleMouseEnter('gopuContent')"  
+                 onmouseleave="handleMouseLeave('gopuContent')">  
+                <h2 class="text-2xl font-semibold text-khaki-700 cursor-pointer group-hover:text-khaki-600">  
+                    GOPU理念  
+                </h2>  
+            </div>  
+
+            <!-- 产品系列版块 -->  
+            <div class="mb-8 group text-center w-1/3 p-8 bg-white bg-opacity-80 rounded-lg shadow-lg transition duration-500 transform hover:scale-105"  
+                 onmouseenter="handleMouseEnter('productContent')"  
+                 onmouseleave="handleMouseLeave('productContent')">  
+                <h2 class="text-2xl font-semibold text-khaki-700 cursor-pointer group-hover:text-khaki-600">  
+                    产品系列  
+                </h2>  
+            </div>  
+        </div>  
+    </div>  
+
+    <!-- 页脚部分 -->  
+    <footer class="bg-white bg-opacity-90 shadow-lg" style="margin-top: +530px;">  
+        <div class="container mx-auto px-6 py-4">  
+            <p class="text-center text-gray-700">&copy; 2023 GOPU</p>  
+        </div>  
+    </footer>  
+
+    <!-- 品牌形象详细内容 -->  
+    <div id="brandContent" class="hover-content" onmouseleave="handleMouseLeave('brandContent')">  
+        <div class="bg-content" style="background-image: url('./新建\ Microsoft\ PowerPoint\ 演示文稿\ (4).png');"></div>  
+        <div class="section">  
+            <h2 class="text-2xl font-semibold">品牌形象</h2>  
+            <p class="font-semibold">GOPU的形象灵感来源于主理人养的一只叫噗噗的黑白色小边牧，小红书账号(噗噗小噗)，噗噗是一只有超绝松弛感的小狗，给予了主理人无限的灵感和想法。</p>  
+            <p class="font-semibold">噗噗在互联网也受到了许多人的喜爱，以噗为创作灵感，诞生了动画形象PUPU。</p>  
+            <p class="font-semibold">PUPU以及GOPU主色调为黑色和白色，搭配手写字体，形成独一无二的品牌风格。</p>  
+        </div>  
+    </div>  
+
+    <!-- GOPU理念详细内容 -->  
+    <div id="gopuContent" class="hover-content" onmouseleave="handleMouseLeave('gopuContent')">  
+        <div class="bg-content" style="background-image: url('./新建\ Microsoft\ PowerPoint\ 演示文稿\ (5).png');"></div>  
+        <div class="section">  
+            <h2 class="text-2xl font-semibold">GOPU理念详情</h2>
+            <p class="font-semibold">Gopu是提倡人宠和谐的生活方式品牌。</p>  
+            <p class="font-semibold">现有产品线中香氛系列全系宠物友好，饰品系列全系均为人宠组合套装。</p>  
+            <p class="font-semibold">Gopu关注城市中的流浪动物，希望通过品牌的力量传递关爱。</p>  
+            <p class="font-semibold">Gopu承诺10%利润用于流浪动物救助基金。</p>  
+        </div>  
+    </div>  
+
+    <!-- 产品系列详细内容 -->  
+    <div id="productContent" class="hover-content" onmouseleave="handleMouseLeave('productContent')">  
+        <div class="bg-content" style="background-image: url('./product-background.jpg');"></div>  
+        <div class="section product-section">  
+            <div class="product-list" style="margin-right: 0px;"> <!-- 添加右边距 -->  
+                <h2 class="text-2xl font-semibold">GOPU香氛系列</h2>  
+                <div class="product-item">  
+                    <img src="./小号.png" alt="小号香薰蜡烛" style="width: 100%; max-width: 600px; height: auto;" />  
+                    <span class="font-semibold" style="font-size: 1.5rem; margin-top: 10px;">小号香薰蜡烛</span>  
+                </div>  
+                <div class="product-item">  
+                    <img src="./MINI.png" alt="MINI试香款" style="width: 100%; max-width: 600px; height: auto;" />  
+                    <span class="font-semibold" style="font-size: 1.5rem; margin-top: 10px;">MINI试香款香薰蜡烛</span>  
+                </div>  
+                <div class="product-item">  
+                    <img src="./大号.png" alt="大号香薰蜡烛" style="width: 100%; max-width: 600px; height: auto;" />  
+                    <span class="font-semibold" style="font-size: 1.5rem; margin-top: 10px;">大号香薰蜡烛</span>  
+                </div>  
+            </div>  
+            <div class="product-list" style="margin-left: 0px;"> <!-- 添加左边距 -->  
+                <h2 class="text-2xl font-semibold">GOPU水杯系列</h2>  
+                <div class="product-item">  
+                    <img src="./搞怪系列.png" alt="搞怪系列玻璃杯" style="width: 100%; max-width: 600px; height: auto;margin-top: 30px;" />  
+                    <span class="font-semibold" style="font-size: 1.5rem; margin-top: 10px;">搞怪系列玻璃杯</span>  
+                </div>  
+                <div class="product-item">  
+                    <img src="./ADMIRE.png" alt="ADMIRE系列玻璃杯" style="width: 100%; max-width: 600px; height: auto;margin-top: 30px;" />  
+                    <span class="font-semibold" style="font-size: 1.5rem; margin-top: 10px;">ADMIRE系列玻璃杯</span>  
+                </div>  
+            </div>  
+        </div>  
+    </div>  
+
+    <!-- 脚本部分 -->  
+    <script>  
+        const companyName = document.getElementById('company-name');  
+        const mainContent = document.getElementById('main-content');  
+
+        companyName.addEventListener('mouseover', function() {  
+            this.classList.add('disperse');  
+            setTimeout(() => {  
+                this.style.display = 'none';  
+                mainContent.style.display = 'flex';  
+                mainContent.style.opacity = '1';  
+                mainContent.classList.add('appear');  
+            }, 1000);  
+        });  
+
+        let activeContentIds = [];  
+        let isHovering = false;  
+
+        function handleMouseEnter(id) {  
+            isHovering = true;  
+            if (!activeContentIds.includes(id)) {  
+                activeContentIds.push(id);  
+            }  
+            const content = document.getElementById(id);  
+            content.style.display = 'flex';  
+            setTimeout(() => {  
+                content.style.opacity = '1';  
+            }, 10);  
+            mainContent.style.filter = 'blur(5px)';  
+        }  
+
+        function handleMouseLeave(id) {  
+            const index = activeContentIds.indexOf(id);  
+            if (index !== -1) {  
+                activeContentIds.splice(index, 1);  
+            }  
+            const content = document.getElementById(id);  
+
+            const rect = content.getBoundingClientRect();  
+            if (event.clientY < rect.top || event.clientY > rect.bottom || event.clientX < rect.left || event.clientX > rect.right) {  
+                content.style.opacity = '0';  
+                setTimeout(() => {  
+                    content.style.display = 'none';  
+                    if (activeContentIds.length === 0) {  
+                        isHovering = false;  
+                        mainContent.style.filter = 'none';  
+                    }  
+                }, 300);  
+            }  
+        }  
+    </script>  
+</body>  
+</html>
